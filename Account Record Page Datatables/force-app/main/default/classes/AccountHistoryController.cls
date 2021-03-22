@@ -37,6 +37,7 @@ public with sharing class AccountHistoryController {
         }
 
         // Get the Users who made the changes.
+        // Using SOQL.
         List<User> users = [
             SELECT Id, Name
             FROM   User
