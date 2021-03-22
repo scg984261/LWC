@@ -1,0 +1,18 @@
+<template>
+    <lightning-card
+        title="Record History"
+        icon-name="standard:entity">
+        <div if:true={accountHistoryData} class="slds-is-relative">
+            <lightning-datatable
+                key-field="historyId"
+                data={accountHistoryData}
+                columns={columns}
+                hide-checkbox-column
+                show-row-number-column>
+            </lightning-datatable>
+            <template if:true={noRecordsReturned}>
+                <p>There have been no changes to this record.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
