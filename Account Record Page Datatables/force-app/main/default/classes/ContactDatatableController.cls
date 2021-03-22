@@ -2,7 +2,7 @@
  * Apex class which contains simple methods for querying Contact records based on a parent AccountId
  * Also contains a method for deleting a Contact in a simple DML operation.
  * 
- * Author: Scott Gillen (scottg159@gmail.com, scg984261)
+ * Author: Scott Gillen (scottg159@gmail.com), Git: scg984261
  * Last modified date: 22-Mar-2021
  */
 public with sharing class ContactDatatableController {
