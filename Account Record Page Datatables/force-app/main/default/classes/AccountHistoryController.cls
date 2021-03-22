@@ -6,16 +6,22 @@ public with sharing class AccountHistoryController {
         List<AccountHistoryWrapper> accountHistoryWrapperList = new List<AccountHistoryWrapper>();
 
         Map<String,String> LabelMap = new Map<String,String>();
-
+        
+        // Get the objects from the Schema and their names (in a map).
         Map<String, Schema.SObjectType> schemaMap = Schema.getGlobalDescribe();
+
+        // Get the Account object.
 		Schema.SObjectType leadSchema = schemaMap.get('Account');
+
+        // Now get the Names of the fields which belong to account.
 		Map<String, Schema.SObjectField> fieldMap = leadSchema.getDescribe().fields.getMap();
 
         // Adds the API name of a field to a map, along with the label of that field.	
 		for (String fieldName : fieldMap.keySet()) {
-			LabelMap.put(fieldName,fieldMap.get(fieldName).getDescribe().getLabel());
+			LabelMap.put(fieldName, fieldMap.get(fieldName).getDescribe().getLabel());
 		}
 
+        // Query for the Account History Records which belong to this Account.
         List<AccountHistory> accountHistoryList = [
             SELECT Id, AccountId, CreatedById, CreatedDate, Field, NewValue, OldValue
             FROM   AccountHistory
@@ -25,11 +31,12 @@ public with sharing class AccountHistoryController {
 
         Set<String> Ids = new Set<String>();
 
+        // Ids of the users who made the changes.
         for(AccountHistory ah : accountHistoryList) {
             Ids.add(ah.CreatedById);
         }
 
-        // Get the names of the Users who made the changes.
+        // Get the Users who made the changes.
         List<User> users = [
             SELECT Id, Name
             FROM   User
@@ -38,6 +45,7 @@ public with sharing class AccountHistoryController {
 
         Map<Id, String> userMap = new Map<Id, String>();
 
+        // Map the names of the users to their Ids.
         for(User us : users) {
             userMap.put(us.Id, us.name);
         }
