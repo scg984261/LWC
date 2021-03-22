@@ -1,0 +1,13 @@
+<template>
+    <lightning-card
+        title="Account Details">
+
+        <template if:true={account}>
+            <lightning-record-form
+                object-api-name="Account"
+                record-id={account.Id}
+                fields={fields}>
+            </lightning-record-form>
+        </template>
+    </lightning-card>
+</template>
