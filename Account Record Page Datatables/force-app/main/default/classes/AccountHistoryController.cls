@@ -1,3 +1,9 @@
+/**
+ * Controller class for the Account History data-table.
+ * 
+ * Last Modified by: Scott Gillen
+ * Date:             22-Mar-2021
+ */
 public with sharing class AccountHistoryController {
     
     @AuraEnabled(cacheable=true)
