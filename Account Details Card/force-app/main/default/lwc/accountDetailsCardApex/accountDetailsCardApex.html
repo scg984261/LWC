@@ -1,6 +1,7 @@
 <template>
     <lightning-card
-        title="Account Details">
+        title="Account Details - Apex"
+        icon-name="custom:custom63">
 
         <template if:true={account}>
             <lightning-record-form
@@ -8,6 +9,10 @@
                 record-id={account.Id}
                 fields={fields}>
             </lightning-record-form>
+        </template>
+
+        <template if:true={error}>
+            <p>{error}</p>
         </template>
     </lightning-card>
 </template>

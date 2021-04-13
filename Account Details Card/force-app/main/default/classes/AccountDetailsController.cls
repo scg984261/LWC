@@ -20,5 +20,5 @@ public with sharing class AccountDetailsController {
         ];
 
         return account;
-    }
+    } 
 }
