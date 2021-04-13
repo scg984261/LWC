@@ -12,13 +12,18 @@ import ACCOUNT_PHONE               from '@salesforce/schema/Account.Phone';
 
 export default class AccountDetailsCardApex extends LightningElement {
     account;
+    error;
 
     @api recordId;
 
     @wire(getAssociatedAccount, {contactId: '$recordId'})
-    wiredAccount( { data } ) {
+    wiredAccount( { data, error } ) {
         if(data) {
             this.account = data;
+            this.error = undefined;
+        } else if (error) {
+            this.error = error;
+            this.account = undefined;
         }
     }
 

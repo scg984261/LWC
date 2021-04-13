@@ -4,6 +4,8 @@
     <isExposed>true</isExposed>
     <targets>
         <target>lightning__RecordPage</target>
-        <target>lightning__AppPage</target>
+        <objects>
+            <object>Contact</object>
+        </objects>
     </targets>
 </LightningComponentBundle>
