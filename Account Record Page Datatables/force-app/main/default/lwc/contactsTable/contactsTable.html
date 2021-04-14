@@ -27,11 +27,7 @@
                     column-widths-mode="auto"
                     show-row-number-column
                     hide-checkbox-column
-                    onrowaction={handleRowAction}
-                    default-sort-direction={defaultSortDirection}
-                    sorted-direction={sortDirection}
-                    sorted-by={sortedBy}
-                    onsort={onHandleSort}>
+                    onrowaction={handleRowAction}>
                 </lightning-datatable>
 
                 <template if:true={noRecordsReturned}>

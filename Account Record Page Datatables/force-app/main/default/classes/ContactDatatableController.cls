@@ -3,7 +3,7 @@
  * Also contains a method for deleting a Contact in a simple DML operation.
  * 
  * Author: Scott Gillen (scottg159@gmail.com), Git: scg984261
- * Last modified date: 22-Mar-2021
+ * Last modified date: 14-Apr-2021
  */
 public with sharing class ContactDatatableController {
 
@@ -15,19 +15,19 @@ public with sharing class ContactDatatableController {
 
         if(key == '%%') {
             contacts = [
-                SELECT  Id, FirstName, LastName, AccountId, Account.Name, Title, Phone, Email, Birthdate, CreatedById, OwnerId, CreatedDate 
-                FROM    Contact 
-                WHERE   AccountId=:inputId
-                ORDER BY LastName ASC 
+                SELECT   Id, FirstName, LastName, AccountId, Account.Name, Title, Phone, Email, Birthdate, CreatedById, OwnerId, CreatedDate 
+                FROM     Contact 
+                WHERE    AccountId=:inputId
+                ORDER BY CreatedDate DESC 
             ];
         } else {          
             contacts = [
-                SELECT Id, FirstName, LastName, AccountId, Account.Name, Title, Phone, Email, Birthdate, CreatedById, OwnerId, CreatedDate
-                FROM   Contact
-                WHERE (FirstName LIKE :key
-                OR     LastName LIKE :key)
-                AND    AccountId=:inputId
-                LIMIT  10
+                SELECT   Id, FirstName, LastName, AccountId, Account.Name, Title, Phone, Email, Birthdate, CreatedById, OwnerId, CreatedDate
+                FROM     Contact
+                WHERE   (FirstName LIKE :key
+                OR       LastName LIKE :key)
+                AND      AccountId=:inputId
+                ORDER BY CreatedDate DESC 
             ];
         }
 

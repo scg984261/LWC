@@ -13,8 +13,8 @@ const actions = [
 ];
 
 const COLUMNS = [ 
-    {label:"First Name",    fieldName:"FirstName", sortable: true},
-    {label:"Last Name",     fieldName:"LastName", sortable: true},
+    {label:"First Name",    fieldName:"FirstName"},
+    {label:"Last Name",     fieldName:"LastName"},
     {label:"Title",         fieldName:"Title",       type:"text"},
     {label:"Email",         fieldName:"Email",       type:"email"},
     {label:"Phone",         fieldName:"Phone",       type:"phone", iconName: "utility:call"},
@@ -44,10 +44,6 @@ export default class ContactsTable extends NavigationMixin(LightningElement)  {
 
     @track wiredContactsResult;
 
-    defaultSortDirection = 'asc';
-    sortDirection = 'asc';
-    sortedBy;
-
     @wire(getContacts, {searchKey: '$searchValue', inputId: '$recordId' } )
     wiredContacts(result) {
         console.log(result);
@@ -61,33 +57,6 @@ export default class ContactsTable extends NavigationMixin(LightningElement)  {
                 this.noRecordsReturned = false;
             }
         }
-    }
-
-    // Used to sort the 'Age' column
-    sortBy(field, reverse, primer) {
-        const key = primer
-            ? function(x) {
-                  return primer(x[field]);
-              }
-            : function(x) {
-                  return x[field];
-              };
-
-        return function(a, b) {
-            a = key(a);
-            b = key(b);
-            return reverse * ((a > b) - (b > a));
-        };
-    }
-
-    onHandleSort(event) {
-        const { fieldName: sortedBy, sortDirection } = event.detail;
-        const cloneData = [...this.contacts.data];
-
-        cloneData.sort(this.sortBy(sortedBy, sortDirection === 'asc' ? 1 : -1));
-        this.contacts.data = cloneData;
-        this.sortDirection = sortDirection;
-        this.sortedBy = sortedBy;
     }
     
     async handleRowAction(event) {
@@ -132,17 +101,6 @@ export default class ContactsTable extends NavigationMixin(LightningElement)  {
                 break;
             default:
         }
-    }
-
-    setRecordsReturned() {
-        if(this.contacts.data.length === 0) {
-            this.noRecordsReturned = true;
-        } else {
-            this.noRecordsReturned = false;
-        }
-
-        console.log(this.noRecordsReturned);
-        console.log(this.contacts);
     }
 
     async handleChange(event) {
