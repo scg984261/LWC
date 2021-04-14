@@ -43,6 +43,8 @@ export default class ContactsTable extends NavigationMixin(LightningElement)  {
     @track contacts;
 
     @track wiredContactsResult;
+    
+    error;
 
     @wire(getContacts, {searchKey: '$searchValue', inputId: '$recordId' } )
     wiredContacts(result) {
@@ -56,6 +58,9 @@ export default class ContactsTable extends NavigationMixin(LightningElement)  {
             } else {
                 this.noRecordsReturned = false;
             }
+        } else if(result.error) {
+            this.error = result.error;
+            console.log(result.error);
         }
     }
     
@@ -73,7 +78,8 @@ export default class ContactsTable extends NavigationMixin(LightningElement)  {
                 this.isLoaded = true;
                 const toastEvent = new ShowToastEvent({
                     title:   "Contact: " + fn + ' ' + ln + ' successfully deleted',
-                    variant: "success"
+                    variant: "success",
+                    message: "You can recover this record from the recycling bin"
                 });
                 this.dispatchEvent(toastEvent);
                 break;
