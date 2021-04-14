@@ -42,14 +42,18 @@ export default class ContactsTable extends NavigationMixin(LightningElement)  {
 
     @track contacts;
 
+    @track wiredContactsResult;
+
     defaultSortDirection = 'asc';
     sortDirection = 'asc';
     sortedBy;
 
     @wire(getContacts, {searchKey: '$searchValue', inputId: '$recordId' } )
-    wiredContacts( { data } ) {
-        if(data) {
-            this.contacts = data;
+    wiredContacts(result) {
+        console.log(result);
+        this.wiredContactsResult = result;  
+        if(result.data) {       
+            this.contacts = result.data;
 
             if(this.contacts.length === 0) {
                 this.noRecordsReturned = true;
@@ -96,7 +100,7 @@ export default class ContactsTable extends NavigationMixin(LightningElement)  {
                 const fn = row.FirstName;
                 const ln = row.LastName;
                 await deleteContact({ contactId: row.Id });
-                await refreshApex(this.contacts);
+                await refreshApex(this.wiredContactsResult);
                 this.isLoaded = true;
                 const toastEvent = new ShowToastEvent({
                     title:   "Contact: " + fn + ' ' + ln + ' successfully deleted',
